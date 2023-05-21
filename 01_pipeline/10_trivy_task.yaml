@@ -10,8 +10,8 @@ metadata:
     tekton.dev/tags: Security
 spec:
   description: >-
-    This Task scans Comprehensive Vulnerability using Trivy for Containers
-    and other Artifacts, Suitable in CI.
+    Vulnerability scanner with Trivy:
+    This will scan vulnerability in Containers.
   params:
   - name: IMAGE
     description: Reference of the image Trivy will scan.
@@ -19,7 +19,7 @@ spec:
     description: Reference of the image digest Trivy will scan.
   - name: TRIVY_IMAGE
     description: The location of the Trivy scan image.
-    default: aquasec/trivy:0.19.2
+    default: aquasec/trivy:0.41.2
   - name: TRIVY_USERNAME
     description: Authentication user name to get the target scan image.
     default: ""
@@ -38,14 +38,14 @@ spec:
   - name: build-report
     image: $(params.TRIVY_IMAGE)
     script: |
-      SCAN_CONTAINER_IMAGE=$(params.IMAGE)@$(params.IMAGE_DIGEST)
+      SCAN_CONTAINER_IMAGE=$(params.IMAGE)
       trivy --cache-dir=$(workspaces.cache.path)/trivy \
         image --timeout 10m --exit-code=0 --severity=HIGH,CRITICAL \
         ${SCAN_CONTAINER_IMAGE}
   - name: severe-vulnerabilities
     image: $(params.TRIVY_IMAGE)
     script: |
-      SCAN_CONTAINER_IMAGE=$(params.IMAGE)@$(params.IMAGE_DIGEST)
+      SCAN_CONTAINER_IMAGE=$(params.IMAGE)
       trivy --cache-dir=$(workspaces.cache.path)/trivy \
         image --exit-code=1 --no-progress --severity=CRITICAL \
         ${SCAN_CONTAINER_IMAGE}

@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: trivy-scanning-reviews-run-
+spec:
+  serviceAccountName: pipeline
+  taskRef:
+    name: trivy
+  params:
+    - name: IMAGE
+      value: image-registry.openshift-image-registry.svc:5000/pipelines-test/pipelines-vote-api
+  workspaces:
+    - name: cache
+      emptyDir: {}
+

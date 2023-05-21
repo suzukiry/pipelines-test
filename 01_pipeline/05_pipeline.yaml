@@ -51,6 +51,14 @@ spec:
       workspace: shared-workspace
     runAfter:
     - fetch-repository
+
+
+
+
+
+
+
+
   - name: apply-manifests 
     taskRef:
       name: apply-manifests
