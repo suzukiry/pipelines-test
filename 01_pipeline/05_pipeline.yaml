@@ -5,6 +5,9 @@ metadata:
 spec:
   workspaces:
   - name: shared-workspace
+    description: Save code-related information
+  - name: vul-cache
+    description: Cache vulnerabilities infomation
   params:
   - name: deployment-name
     type: string
@@ -59,6 +62,9 @@ spec:
     params:
     - name: IMAGE
       value: $(params.IMAGE)
+    workspaces:
+    - name: cache
+      workspace: vul-cache
     runAfter:
     - build-image
 
