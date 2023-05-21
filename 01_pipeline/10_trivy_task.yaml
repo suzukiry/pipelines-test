@@ -17,9 +17,10 @@ spec:
     description: Reference of the image Trivy will scan.
   - name: IMAGE_DIGEST
     description: Reference of the image digest Trivy will scan.
+    default: ""
   - name: TRIVY_IMAGE
     description: The location of the Trivy scan image.
-    default: aquasec/trivy:0.41.2
+    default: aquasec/trivy:0.41.0
   - name: TRIVY_USERNAME
     description: Authentication user name to get the target scan image.
     default: ""
